@@ -76,9 +76,9 @@ function parseUplink(device, payload) {
     env.log("model", "=>", model);
     env.log("count", " => ", count);
     //Device model validation if is diferent of 8E will return false
-    if (model != "8E") {
-        return JSON.stringify(new ProcessUplinkResult(false, errorx));
-    }
+   // if (model != "8E") {
+   //     return JSON.stringify(new ProcessUplinkResult(false, errorx));
+   // }
 
     let allData = readDataItems(payload, count);
     let locationSensor = device.endpoints.byType(endpointType.locationTracker);
@@ -88,6 +88,9 @@ function parseUplink(device, payload) {
         if (locationSensor != null && (item.latitude !=0 && item.longitude!=0)) {
             try {
                locationSensor.updateLocationTrackerStatus(item.latitude, item.longitude, item.altitude, 0, item.timeStamp);
+               //env.log("Recibido: ", item.latitude, item.longitude, item.timeStamp);
+               //locationSensor.updateLocationTrackerStatus(item.latitude, item.longitude);
+               //env.log(item.latitude, item.longitude, item.timeStamp);
             } catch (err) {
                errorx.push(new ProcessUplinkErrors(item.timeStamp, locationSensor.endpointID, locationSensor.description, 0, err.message, "latitude", item.latitude.toString()));
                errorx.push(new ProcessUplinkErrors(item.timeStamp, locationSensor.endpointID, locationSensor.description, 0, err.message, "longitud", item.longitude.toString()));
@@ -104,6 +107,7 @@ function parseUplink(device, payload) {
             if (temperatureSensor != null && temp && (temperature<250 && temperature>-250)) {
                 try {
                     temperatureSensor.updateTemperatureSensorStatus(temperature, item.timeStamp);
+                    //temperatureSensor.updateTemperatureSensorStatus(temperature);
                 } catch (err) {
                     errorx.push(new ProcessUplinkErrors(item.timeStamp, temperatureSensor.endpointID, temperatureSensor.description, 0, err.message, "temperature", temperature.toString()));
                 }   
