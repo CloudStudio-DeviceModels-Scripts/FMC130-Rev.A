@@ -14,14 +14,8 @@ function getConfiguration(config)
 
 function getEndpoints(deviceAddress, endpoints)
 {
-   endpoints.addEndpoint("1", "Ubicación", endpointType.locationTracker);
-   endpoints.addEndpoint("2", "Temperatura", endpointType.temperatureSensor);
-   endpoints.addEndpoint("3", "Humedad", endpointType.humiditySensor);
-   endpoints.addEndpoint("4", "Oxígeno", endpointType.ppmConcentrationSensor);
-   endpoints.addEndpoint("5", "Dióxido de Carbono", endpointType.ppmConcentrationSensor, ppmConcentrationSensorSubType.carbonDioxide);
-   endpoints.addEndpoint("6", "Puertas", endpointType.iasSensor, iasEndpointSubType.doorSensor);
-   endpoints.addEndpoint("7", "Luz", endpointType.lightSensor);
-   endpoints.addEndpoint("8", "Impacto", endpointType.iasSensor, iasEndpointSubType.alarmInput);
+   endpoints.addEndpoint("1", "T-Vehículo-F", endpointType.temperatureSensor);
+   endpoints.addEndpoint("2", "Vehículo-F", endpointType.locationTracker);
 }
 
 function validateDeviceAddress(address, result)
@@ -53,7 +47,7 @@ function updateDeviceUIRules(device, rules)
   // user interface. This means that the device will be limited to the 
   // endpoints defined by function getEndpoints() above.
   
-  rules.canCreateEndpoints = true;
+  // rules.canCreateEndpoints = false;
 }
 
 function updateEndpointUIRules(endpoint, rules)
